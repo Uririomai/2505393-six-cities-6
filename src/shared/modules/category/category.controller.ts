@@ -46,6 +46,7 @@ export class CategoryController extends BaseController {
       handler: this.getOffersFromCategory,
       middlewares: [new ValidateObjectIdMiddleware('categoryId')],
     });
+    this.addRoute({ path: '/', method: HttpMethod.Get, handler: this.index });
   }
 
   public async index(_req: Request, res: Response): Promise<void> {
