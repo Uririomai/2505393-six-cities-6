@@ -49,6 +49,5 @@ export class CreateOfferDto {
   })
   public categories: string[];
 
-  @IsMongoId({ message: CreateOfferValidationMessage.userId.invalidId })
   public userId: string;
 }
