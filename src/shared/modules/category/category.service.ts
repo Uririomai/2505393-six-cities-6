@@ -5,7 +5,11 @@ import { Logger } from '../../libs/logger/index.js';
 import { DocumentType, types } from '@typegoose/typegoose';
 import { CategoryEntity } from './category.entity.js';
 import { CreateCategoryDto } from './dto/create-category.dto.js';
-import { MAX_CATEGORIES_COUNT } from './category.constant.js';
+import {
+  DEFAULT_CATEGORIES_IMAGES,
+  MAX_CATEGORIES_COUNT,
+} from './category.constant.js';
+import { getRandomItem } from '../../helpers/index.js';
 
 @injectable()
 export class DefaultCategoryService implements CategoryService {
@@ -18,7 +22,11 @@ export class DefaultCategoryService implements CategoryService {
   public async create(
     dto: CreateCategoryDto
   ): Promise<DocumentType<CategoryEntity>> {
-    const result = await this.categoryModel.create(dto);
+    const randomCategoryImage = getRandomItem(DEFAULT_CATEGORIES_IMAGES);
+    const result = await this.categoryModel.create({
+      ...dto,
+      image: randomCategoryImage,
+    });
     this.logger.info(`New category created: ${dto.name}`);
     return result;
   }
