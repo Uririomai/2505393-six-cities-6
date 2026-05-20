@@ -9,6 +9,7 @@ import { createCategoryContainer } from './shared/modules/category/index.js';
 import { createOfferContainer } from './shared/modules/offer/offer.container.js';
 import { createCommentContainer } from './shared/modules/comment/index.js';
 import { Container } from 'inversify';
+import { createAuthContainer } from './shared/modules/auth/index.js';
 
 async function bootstrap() {
   const appContainer = Container.merge(
@@ -16,7 +17,8 @@ async function bootstrap() {
     createUserContainer(),
     createCategoryContainer(),
     createOfferContainer(),
-    createCommentContainer()
+    createCommentContainer(),
+    createAuthContainer(),
   );
 
   const application = appContainer.get<RestApplication>(

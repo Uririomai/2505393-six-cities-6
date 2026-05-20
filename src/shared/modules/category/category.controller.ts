@@ -3,7 +3,7 @@ import { Response, Request } from 'express';
 import {
   BaseController,
   HttpError,
-  HttpMethod,
+  HttpMethod, PrivateRouteMiddleware,
   RequestQuery,
   ValidateObjectIdMiddleware,
   ValidateDtoMiddleware,
@@ -35,7 +35,10 @@ export class CategoryController extends BaseController {
       path: '/',
       method: HttpMethod.Post,
       handler: this.create,
-      middlewares: [new ValidateDtoMiddleware(CreateCategoryDto)],
+      middlewares: [
+        new PrivateRouteMiddleware(),
+        new ValidateDtoMiddleware(CreateCategoryDto),
+      ],
     });
     this.addRoute({
       path: '/:categoryId/offers',
